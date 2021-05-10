@@ -1,0 +1,472 @@
+# -*- mode: org -*-
+#+TITLE: Emacs init.el File using Orgmode
+#+AUTHOR: Pedro Bruel
+#+EMAIL: pedro.bruel@gmail.com
+#+STARTUP: indent logdrawer
+#+LANGUAGE: en
+#+TAGS: noexport(n)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+* Introduction
+This exports a bare-bones Emacs configuration.  Open this file in Emacs, and the
+built-in org version should be able to generate the =init.el= file with the =C-c
+C-v C-t= command.
+* Packages
+** Archives
+- Getting latest MELPA packages, but not using stable versions since
+  many packages won't appear.
+- Getting latest org version:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(package-initialize)
+(require 'package)
+(setq package-archives '(("org" . "https://orgmode.org/elpa/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("gnu" . "https://elpa.gnu.org/packages/")))
+#+end_SRC
+
+** Git Packages
+*** org-mode from git
+This clones org-mode =release_9.4.5= and loads it locally.
+
+#+begin_SRC emacs-lisp :tangle init.el
+(unless (file-directory-p "~/.emacs.d/lisp/org-mode")
+    (make-directory "~/.emacs.d/lisp/")
+    (shell-command (concat "cd ~/.emacs.d/lisp &&"
+                           "git clone "
+                           "--branch release_9.4.5 "
+                           "https://code.orgmode.org/bzg/org-mode.git ")))
+
+(let ((default-directory  "~/.emacs.d/lisp/"))
+  (normal-top-level-add-to-load-path '("org-mode/lisp")))
+#+end_SRC
+** Ensure Installed
+Install these packages at startup.
+
+#+begin_SRC emacs-lisp :tangle init.el
+(setq pkg-deps '(ebib
+                 magit
+                 ess
+                 counsel
+                 swiper
+                 ivy
+                 which-key
+                 base16-theme))
+
+(dolist (pkg pkg-deps)
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
+#+end_SRC
+
+* Function
+These  configurations regard  Emacs  function, are  opinionated,  and should  be
+checked.  They  can be turned off  by replacing =:tangle init.el=  in the header
+any source block with =:tangle no=.
+
+** Saving Session & History
+Enables saving command history and Emacs buffer list:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(savehist-mode 1)
+(desktop-save-mode 1)
+
+(setq-default desktop-save t)
+(setq-default desktop-auto-save-timeout 10)
+#+end_SRC
+
+** Encoding
+#+begin_SRC emacs-lisp :tangle init.el
+(setq-default buffer-file-coding-system 'utf-8-unix)
+#+end_SRC
+
+** Tabs as Spaces
+#+begin_SRC emacs-lisp :tangle init.el
+(setq-default indent-tabs-mode nil)
+#+end_SRC
+
+** File Position
+Rememeber position in files, except unreadable ones:
+#+begin_SRC emacs-lisp :tangle init.el
+(save-place-mode 1)
+(setq save-place-forget-unreadable-files nil)
+#+end_SRC
+** Update Changed Files
+Emacs gets notified by changed files and updates buffers automatically:
+#+begin_SRC emacs-lisp :tangle init.el
+(global-auto-revert-mode t)
+#+end_SRC
+** Backups
+Create backup and autosave directories if none exist:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(defvar backup-directory (concat user-emacs-directory "backups/"))
+(defvar autosave-directory (concat user-emacs-directory "autosave/"))
+
+(if (not (file-exists-p backup-directory)) (make-directory backup-directory t))
+(if (not (file-exists-p autosave-directory)) (make-directory autosave-directory t))
+
+(setq backup-directory-alist `((".*" . ,backup-directory)))
+(setq auto-save-file-name-transforms `((".*" ,autosave-directory t)))
+#+end_SRC
+
+Configure backups and autosave:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(setq make-backup-files t)
+(setq auto-save-default t)
+(setq auto-save-timeout 45)
+#+end_SRC
+
+Do not create lockfiles:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(setq create-lockfiles nil)
+#+end_SRC
+
+Auto save based on keystrokes:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(setq auto-save-interval 300)
+#+end_SRC
+** Custom Configuration File
+Options chosen with the customize UI live here:
+
+#+begin_src emacs-lisp :tangle init.el
+(setq custom-file "~/.emacs.d/emacs-custom.el")
+(load custom-file)
+#+end_src
+** Default Programs
+#+begin_SRC emacs-lisp :tangle no
+(setq browse-url-browser-function 'browse-url-generic)
+(setq browse-url-generic-program "firefox")
+#+end_SRC
+** Paragraph Fill
+#+begin_SRC emacs-lisp :tangle init.el
+(setq-default fill-column 80)
+#+end_SRC
+** Hide/Show
+Turns  on  hide/show minor  mode  for  all  programming modes.   Check  commands
+[[https://www.emacswiki.org/emacs/HideShow][here]].
+#+begin_SRC emacs-lisp :tangle init.el
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+#+End_SRC
+** Yes-or-no
+#+begin_SRC emacs-lisp :tangle init.el
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+end_SRC
+* Aesthetics
+These configurations regard  aesthetics, are opinionated, and  could be checked.
+They can be turned  off by replacing =:tangle init.el= in  the header any source
+block with =:tangle no=.
+
+** Screen
+*** Splashscreen
+#+begin_SRC emacs-lisp :tangle init.el
+(setq inhibit-splash-screen t)
+#+end_SRC
+** Window Splits
+Prefer splitting vertically:
+#+begin_SRC emacs-lisp :tangle init.el
+(setq split-height-threshold 20)
+(setq split-width-threshold 60)
+#+end_SRC
+** Color Theme
+To use =base16= themes, install the =base16-theme= package and run:
+#+begin_SRC emacs-lisp :tangle init.el
+(require 'base16-theme)
+(load-theme 'base16-default-dark t)
+#+end_SRC
+** Toolbar, Menubar, Scrollbar & Fringe
+#+begin_SRC emacs-lisp :tangle init.el
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(set-fringe-mode 0)
+#+end_SRC
+** Font
+Liberation Mono should be everywhere.
+
+#+begin_SRC emacs-lisp :tangle init.el
+(add-to-list 'default-frame-alist '(font . "Liberation Mono-13" ))
+(set-face-attribute 'default t :font "Liberation Mono-13" )
+#+end_SRC
+** Cursor
+For more configuration, such as color states, check Section [[Evil]].
+
+Stop blinking:
+#+begin_SRC emacs-lisp :tangle init.el
+(blink-cursor-mode 0)
+#+end_SRC
+** Scrolling
+Scroll one line at a time:
+#+begin_SRC emacs-lisp :tangle init.el
+(setq scroll-step 1)
+(setq scroll-conservatively  10000)
+(setq auto-window-vscroll nil)
+#+end_SRC
+** Whitespace
+Remove trailing whitespace before saving:
+#+begin_SRC emacs-lisp :tangle init.el
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+end_SRC
+** Parenthesis
+#+begin_SRC emacs-lisp :tangle init.el
+(show-paren-mode 1)
+#+end_SRC
+** Indentation
+Set C/C++ indentation levels:
+#+begin_SRC emacs-lisp :tangle init.el
+(setq-default c-default-style "linux"
+              c-basic-offset 4)
+#+end_SRC
+** Line Numbering
+Enable line numbering for all programming modes:
+#+begin_SRC emacs-lisp :tangle init.el
+(add-hook 'prog-mode-hook 'linum-mode)
+#+end_SRC
+* Package Configuration
+** Which-key
+Check   the  [[https://github.com/justbur/emacs-which-key][documentation]]   for
+further configuration.
+#+begin_SRC emacs-lisp :tangle init.el
+(require 'which-key)
+(which-key-mode)
+#+end_SRC
+** Org mode
+Load package:
+#+begin_src emacs-lisp :tangle init.el
+(require 'org)
+#+end_SRC
+
+*** Paths
+Always include relative paths in file links:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-link-file-path-type 'relative)
+#+end_SRC
+*** Inline Images
+Don't show inline images, re-show images after running code:
+#+begin_SRC emacs-lisp :tangle init.el
+(add-hook 'org-mode-hook 'org-display-inline-images)
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+(setq org-startup-with-inline-images nil)
+;; (setq org-image-actual-width nil)
+#+end_SRC
+
+*** Visual
+Hide formatting marks (*,=,/,...):
+#+begin_SRC emacs-lisp :tangle init.el
+;; (setq org-hide-emphasis-markers t)
+(setq org-hide-emphasis-markers nil)
+#+end_SRC
+
+Don't hide link markers ("[", "]"):
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-descriptive-links nil)
+#+end_SRC
+
+Show parsed "latex" symbols, such as "\ theta" (\theta):
+#+begin_SRC emacs-lisp :tangle init.el
+;; (setq org-pretty-entities t)
+(setq org-pretty-entities nil)
+#+end_SRC
+
+HTML exports use css:
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-html-htmlize-output-type (quote css))
+#+end_SRC
+
+Control separator lines between subtrees:
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-cycle-separator-lines 0)
+#+end_SRC
+
+*** Capture
+These should  be configured  with user-specific  paths, and  are not  tangled by
+default.
+
+Setting up directory for notes:
+#+begin_SRC emacs-lisp :tangle no
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+#+end_SRC
+
+Binding org-capture globally:
+#+begin_SRC emacs-lisp :tangle no
+(global-set-key (kbd "C-c c") 'org-capture)
+#+end_SRC
+
+Some templates for agenda tasks:
+#+begin_SRC emacs-lisp :tangle no
+(setq org-capture-templates
+      '(("t" "General task" entry (file+headline "~/org/tasks/tasks.org" "Tasks")
+         "* TODO %?\n %i\n %t")
+        ("w" "Work task" entry (file+headline "~/org/tasks/work.org" "Work")
+         "* TODO %?\n %i\n %t")))
+#+end_SRC
+*** Agenda
+These should  be configured  with user-specific  paths, and  are not  tangled by
+default.
+
+Set agenda files directory:
+#+begin_SRC emacs-lisp :tangle no
+(setq org-agenda-files (list "/home/[user]/org/tasks"))
+#+end_SRC
+
+Restore window setup after quitting agenda:
+#+begin_SRC emacs-lisp :tangle no
+(setq org-agenda-restore-windows-after-quit t)
+#+end_SRC
+
+Binding org-agenda globally:
+#+begin_SRC emacs-lisp :tangle no
+(global-set-key (kbd "C-c a") 'org-agenda)
+#+end_SRC
+*** Latex Exporting (ox-latex)
+**** Remove hyperref section
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-latex-with-hyperref nil)
+#+end_SRC
+**** Exporting, and latexmk
+#+begin_SRC emacs-lisp :tangle init.el
+(require 'ox-latex)
+(setq org-latex-pdf-process (list "latexmk -pdflatex='pdflatex -interaction nonstopmode -output-directory %o %f' -pdf -f %f -output-directory=%o"))
+
+(setq org-latex-default-packages-alist nil)
+(setq org-latex-packages-alist (quote (("" "booktabs" t))))
+(setq org-latex-listings t)
+#+end_SRC
+**** Custom Classes
+Some custom classes for IEEE and Elsevier templates. Not tangled by default.
+
+#+begin_SRC emacs-lisp :tangle no
+(add-to-list 'org-latex-classes
+             '("org-elsarticle"
+               "\\documentclass{elsarticle}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(add-to-list 'org-latex-classes
+             '("org-ieeetran"
+               "\\documentclass{IEEEtran}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(add-to-list 'org-latex-classes
+           '("partless-book"
+              "\\documentclass{book}"
+              ("\\chapter{%s}" . "\\chapter{%s}")
+              ("\\section{%s}" . "\\section*{%s}")
+              ("\\subsection{%s}" . "\\subsection*{%s}")
+              ("\\paragraph{%s}" . "\\paragraph*{%s}")
+              )
+)
+#+end_src
+**** Prefer User Header
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-latex-prefer-user-labels t)
+#+end_SRC
+*** Markdown Exporting (ox-md)
+#+begin_SRC emacs-lisp :tangle init.el
+(require 'ox-md)
+#+end_SRC
+*** ODT Exporting (ox-odt)
+#+begin_SRC emacs-lisp :tangle init.el
+(require 'ox-odt)
+#+end_SRC
+*** Source Blocks and Templates (org-tempo)
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-edit-src-auto-save-idle-delay 5)
+(setq org-edit-src-content-indentation 0)
+(setq org-src-fontify-natively t)
+(setq org-src-window-setup (quote other-window))
+(setq org-confirm-babel-evaluate nil)
+#+end_SRC
+
+**** Source Block Templates (org-tempo)
+#+begin_src emacs-lisp :tangle init.el
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist
+             '("I" . "SRC emacs-lisp :tangle init.el"))
+(add-to-list 'org-structure-template-alist
+             '("S" . "SRC shell :results output :session *Shell* :eval no-export :exports results"))
+(add-to-list 'org-structure-template-alist
+             '("j" . "SRC julia :eval no-export :exports results"))
+(add-to-list 'org-structure-template-alist
+             '("p" . "SRC python :results output :session *Python* :eval no-export :exports results"))
+(add-to-list 'org-structure-template-alist
+             '("r" . "SRC R :results output :session *R* :eval no-export :exports results"))
+(add-to-list 'org-structure-template-alist
+             '("g" . "SRC R :results graphics output :session *R* :file \".pdf\" :width 10 :height 10 :eval no-export"))
+(add-to-list 'org-structure-template-alist
+             '("t" . "SRC latex :results latex :exports results :eval no-export"))
+#+end_src
+
+*** Babel Languages (org-babel)
+**** Remove Python Completion
+Remove python completion, which caused some warnings:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(setq python-shell-completion-native-enable nil)
+#+end_SRC
+
+**** Load Languages
+Loading the following babel languages:
+
+#+begin_SRC emacs-lisp :tangle init.el
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (R . t)
+   (C . t)
+   (python . t)
+   (emacs-lisp . t)
+   (shell . t)
+   (ruby . t)
+   (org . t)
+   (makefile . t)
+   (latex . t)
+   (jupyter . t)
+   ))
+#+end_SRC
+
+*** Expanding Linked Attachment Images (org-attach)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(require 'org-attach)
+(setq org-link-abbrev-alist '(("att" . org-attach-expand-link)))
+#+END_SRC
+*** Adding the ignore tag
+#+begin_SRC emacs-lisp :tangle init.el
+(require 'ox-extra)
+(ox-extras-activate '(ignore-headlines))
+#+end_SRC
+** ESS (Emacs Speaks Statistics)
+Set R indentation level:
+#+begin_SRC emacs-lisp :tangle init.el
+(setq ess-indent-level 4)
+#+end_SRC
+** Ivy
+Loading package:
+#+begin_SRC emacs-lisp :tangle init.el
+(require 'ivy)
+(ivy-mode 1)
+#+end_SRC
+
+Defaults:
+#+begin_SRC emacs-lisp :tangle init.el
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+#+end_SRC
+** Magit
+#+begin_SRC emacs-lisp :tangle init.el
+(require 'magit)
+#+end_SRC
