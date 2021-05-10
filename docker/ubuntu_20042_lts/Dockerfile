@@ -20,4 +20,10 @@ RUN useradd -ms /bin/bash org-user
 
 USER org-user
 
-RUN git clone
+WORKDIR /home/org-user/
+
+RUN git clone https://github.com/phrb/deploy-org.git
+
+WORKDIR /home/org-user/deploy-org
+
+RUN ./install/ubuntu_20042_lts.sh
