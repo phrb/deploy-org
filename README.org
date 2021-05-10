@@ -1,0 +1,6 @@
+#+TITLE: Deploy Emacs, Org, and ESS
+#+AUTHOR: Pedro Bruel
+#+STARTUP: overview indent
+
+Use the Emacs  configuration files in this repository to  deploy Emacs, org, and
+ESS in your system. Tested in different distributions using Docker.
