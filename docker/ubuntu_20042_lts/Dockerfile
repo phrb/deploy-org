@@ -4,9 +4,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 USER root
 
-RUN useradd -ms /bin/bash org-user && \
-        echo "org:org" | \
-        chpasswd && adduser org-user sudo
+RUN apt-get update && \
+        apt-get install -y --no-install-recommends \
+        git \
+        apt-transport-https \
+        ca-certificates && \
+        update-ca-certificates
+
+RUN useradd -ms /bin/bash org-user
 
 USER org-user
 
