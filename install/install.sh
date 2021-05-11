@@ -71,8 +71,15 @@ do
             ;;
         -t|--test)
             echo "Running pdf compilation test"
+
             cd org/journal
-            emacs --batch journal.org -f org-latex-export-to-pdf
+
+            emacs \
+                --batch \
+                --eval '(load "${HOME}/.emacs.d/init.el")' \
+                ./org/journal/journal.org \
+                -f org-latex-export-to-pdf
+
             cd -
             ;;
         -h|--help|*)
