@@ -21,4 +21,15 @@ RUN git clone https://github.com/phrb/deploy-org.git
 
 WORKDIR /home/org-user/deploy-org
 
-RUN ./install/install.sh
+USER root
+
+# Requires sudo
+RUN ./install/install.sh -i
+
+USER org-user
+
+# Install Emacs configuration
+RUN ./install/install.sh -e
+
+# Test Emacs org exporter
+RUN ./install/install.sh -t
