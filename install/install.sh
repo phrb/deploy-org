@@ -67,10 +67,13 @@ do
                 mkdir $HOME/.emacs.d
             fi
 
-            cp emacs.d/init.el
+            cp emacs.d/init.el $HOME/.emacs.d
             ;;
         -t|--test)
             echo "Running pdf compilation test"
+            cd org/journal
+            emacs --batch journal.org -f org-latex-export-to-pdf
+            cd -
             ;;
         -h|--help|*)
             usage
