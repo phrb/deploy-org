@@ -468,4 +468,5 @@ Defaults:
 ** Magit
 #+begin_SRC emacs-lisp :tangle init.el
 (require 'magit)
+(define-key global-map (kbd "C-c g") 'magit-status)
 #+end_SRC
