@@ -86,7 +86,7 @@ Enables saving command history and Emacs buffer list:
 #+end_SRC
 
 ** File Position
-Rememeber position in files, except unreadable ones:
+Remember position in files, except unreadable ones:
 #+begin_SRC emacs-lisp :tangle init.el
 (save-place-mode 1)
 (setq save-place-forget-unreadable-files nil)
