@@ -2,7 +2,7 @@
 #+AUTHOR: Pedro Bruel
 #+STARTUP: overview indent
 
-[[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml)][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml/badge.svg]]
+[[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml/badge.svg]]
 
 Use the Emacs  configuration files in this repository to  deploy Emacs, org, and
 ESS in your system. Tested in different distributions using Docker.
