@@ -75,14 +75,15 @@ do
             cd org/journal
 
             echo "Starting Emacs daemon"
-            emacs --daemon
+            emacs --debug-init --batch --user $USER
 
             echo "Runing Emacs batch export of test org file"
-            # emacs \
-            #     --batch \
-            #     --eval '(load "${HOME}/.emacs.d/init.el")' \
-            #     ./org/journal/journal.org \
-            #     -f org-latex-export-to-pdf
+            emacs \
+                --debug-init \
+                --batch \
+                --user $USER \
+                journal.org \
+                -f org-latex-export-to-pdf
 
             cd -
             ;;
