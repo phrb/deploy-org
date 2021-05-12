@@ -74,6 +74,10 @@ do
 
             cd org/journal
 
+            echo "Starting Emacs daemon"
+            emacs --daemon
+
+            echo "Runing Emacs batch export of test org file"
             emacs \
                 --batch \
                 --eval '(load "${HOME}/.emacs.d/init.el")' \
