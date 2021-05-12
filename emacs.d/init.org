@@ -33,20 +33,21 @@ This clones org-mode =release_9.4.5= and loads it locally.
 #+begin_SRC emacs-lisp :tangle init.el
 (unless (file-directory-p "~/.emacs.d/lisp/org-mode")
     (make-directory "~/.emacs.d/lisp/")
-    (shell-command (concat "cd ~/.emacs.d/lisp &&"
+    (shell-command (concat "cd ~/.emacs.d/lisp && "
                            "git clone "
                            "--branch release_9.4.5 "
-                           "https://code.orgmode.org/bzg/org-mode.git ")))
+                           "https://code.orgmode.org/bzg/org-mode.git && "
+                           "cd org-mode && make all")))
 
 (let ((default-directory  "~/.emacs.d/lisp/"))
-  (normal-top-level-add-to-load-path '("org-mode/lisp")))
+  (normal-top-level-add-to-load-path '("org-mode/lisp"
+                                       "org-mode/contrib/lisp")))
 #+end_SRC
 ** Ensure Installed
 Install these packages at startup.
 
 #+begin_SRC emacs-lisp :tangle init.el
-(setq pkg-deps '(ebib
-                 magit
+(setq pkg-deps '(magit
                  ess
                  counsel
                  swiper
