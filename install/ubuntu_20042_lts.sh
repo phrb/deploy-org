@@ -30,11 +30,13 @@ do
             echo "Installing dependencies (requires sudo privileges)"
             apt-get update
             apt-get install -y --no-install-recommends \
+                    python \
                     python3 \
                     r-base \
                     julia \
                     emacs \
                     texlive-latex-extra \
+                    texlive-science \
                     texlive-xetex \
                     texlive-luatex \
                     latexmk
