@@ -1,21 +1,27 @@
-(package-initialize)
 (require 'package)
+
 (setq package-archives '(("org" . "https://orgmode.org/elpa/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/")))
 
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
 (unless (file-directory-p "~/.emacs.d/lisp/org-mode")
     (make-directory "~/.emacs.d/lisp/")
-    (shell-command (concat "cd ~/.emacs.d/lisp &&"
+    (shell-command (concat "cd ~/.emacs.d/lisp && "
                            "git clone "
                            "--branch release_9.4.5 "
-                           "https://code.orgmode.org/bzg/org-mode.git ")))
+                           "https://code.orgmode.org/bzg/org-mode.git && "
+                           "cd org-mode && make all")))
 
 (let ((default-directory  "~/.emacs.d/lisp/"))
-  (normal-top-level-add-to-load-path '("org-mode/lisp")))
+  (normal-top-level-add-to-load-path '("org-mode/lisp"
+                                       "org-mode/contrib/lisp")))
 
-(setq pkg-deps '(ebib
-                 magit
+(setq pkg-deps '(magit
                  ess
                  counsel
                  swiper
@@ -60,6 +66,10 @@
 (setq auto-save-interval 300)
 
 (setq custom-file "~/.emacs.d/emacs-custom.el")
+
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file))
+
 (load custom-file)
 
 (setq-default fill-column 80)
@@ -175,7 +185,6 @@
    (org . t)
    (makefile . t)
    (latex . t)
-   (jupyter . t)
    ))
 
 (require 'org-attach)
@@ -197,3 +206,4 @@
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 
 (require 'magit)
+(define-key global-map (kbd "C-c g") 'magit-status)
