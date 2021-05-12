@@ -398,7 +398,7 @@ Some custom classes for IEEE and Elsevier templates. Not tangled by default.
 #+end_SRC
 
 **** Source Block Templates (org-tempo)
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp :tangle no
 (require 'org-tempo)
 
 (add-to-list 'org-structure-template-alist

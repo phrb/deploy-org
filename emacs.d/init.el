@@ -154,23 +154,6 @@
 (setq org-src-window-setup (quote other-window))
 (setq org-confirm-babel-evaluate nil)
 
-(require 'org-tempo)
-
-(add-to-list 'org-structure-template-alist
-             '("I" . "SRC emacs-lisp :tangle init.el"))
-(add-to-list 'org-structure-template-alist
-             '("S" . "SRC shell :results output :session *Shell* :eval no-export :exports results"))
-(add-to-list 'org-structure-template-alist
-             '("j" . "SRC julia :eval no-export :exports results"))
-(add-to-list 'org-structure-template-alist
-             '("p" . "SRC python :results output :session *Python* :eval no-export :exports results"))
-(add-to-list 'org-structure-template-alist
-             '("r" . "SRC R :results output :session *R* :eval no-export :exports results"))
-(add-to-list 'org-structure-template-alist
-             '("g" . "SRC R :results graphics output :session *R* :file \".pdf\" :width 10 :height 10 :eval no-export"))
-(add-to-list 'org-structure-template-alist
-             '("t" . "SRC latex :results latex :exports results :eval no-export"))
-
 (setq python-shell-completion-native-enable nil)
 
 (org-babel-do-load-languages
