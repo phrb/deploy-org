@@ -26,9 +26,6 @@ C-v C-t= command.
                          ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
-
-(unless package-archive-contents
-  (package-refresh-contents))
 #+end_SRC
 
 ** Git Packages
