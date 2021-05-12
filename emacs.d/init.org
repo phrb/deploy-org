@@ -44,6 +44,9 @@ This clones org-mode =release_9.4.5= and loads it locally.
 (let ((default-directory  "~/.emacs.d/lisp/"))
   (normal-top-level-add-to-load-path '("org-mode/lisp"
                                        "org-mode/contrib/lisp")))
+
+(unless package-archive-contents
+  (package-refresh-contents))
 #+end_SRC
 ** Ensure Installed
 Install these packages at startup.
