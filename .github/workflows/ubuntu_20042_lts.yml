@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Ubuntu 20.04.2 LTS
 
 on:
   push:
