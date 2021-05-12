@@ -54,7 +54,8 @@ This clones org-mode =release_9.4.5= and loads it locally.
 Install these packages at startup.
 
 #+begin_SRC emacs-lisp :tangle init.el
-(setq pkg-deps '(magit
+(setq pkg-deps '(ebib
+                 magit
                  ess
                  counsel
                  swiper

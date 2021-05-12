@@ -23,7 +23,8 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-(setq pkg-deps '(magit
+(setq pkg-deps '(ebib
+                 magit
                  ess
                  counsel
                  swiper
