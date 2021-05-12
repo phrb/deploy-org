@@ -1,4 +1,4 @@
-name: Ubuntu 20.04.2 LTS
+name: Ubuntu Focal LTS
 
 on: [push, pull_request, release, workflow_dispatch]
 
