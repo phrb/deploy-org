@@ -1,11 +1,6 @@
 name: Ubuntu 20.04.2 LTS
 
-on:
-  push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
-  workflow_dispatch:
+on: [push, pull_request, release, workflow_dispatch]
 
 jobs:
 
