@@ -6,20 +6,22 @@
 
 (package-initialize)
 
-(unless package-archive-contents
-  (package-refresh-contents))
-
 (unless (file-directory-p "~/.emacs.d/lisp/org-mode")
     (make-directory "~/.emacs.d/lisp/")
+    (message "Cloning and compiling org-mode")
     (shell-command (concat "cd ~/.emacs.d/lisp && "
                            "git clone "
                            "--branch release_9.4.5 "
                            "https://code.orgmode.org/bzg/org-mode.git && "
-                           "cd org-mode && make all")))
+                           "cd org-mode && make"))
+    (message "Done"))
 
 (let ((default-directory  "~/.emacs.d/lisp/"))
   (normal-top-level-add-to-load-path '("org-mode/lisp"
                                        "org-mode/contrib/lisp")))
+
+(unless package-archive-contents
+  (package-refresh-contents))
 
 (setq pkg-deps '(magit
                  ess
