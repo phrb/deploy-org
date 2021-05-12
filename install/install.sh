@@ -59,6 +59,8 @@ do
             check_os_eval -i
             ;;
         -e|--emacs)
+            set -x
+
             echo "Copying \"init.el\" to $HOME/.emacs.d/"
 
             if [ ! -d "$HOME/.emacs.d" ]
@@ -68,24 +70,33 @@ do
             fi
 
             cp emacs.d/init.el $HOME/.emacs.d
+
+            set +x
             ;;
         -t|--test)
-            echo "Running pdf compilation test"
+            set -x
+
+            echo "Running init.el loading tests"
 
             cd org/journal
 
-            echo "Starting Emacs daemon"
-            emacs --debug-init --batch --user $USER
+            echo "Loading init.el"
+            emacs \
+                --debug-init \
+                --batch \
+                --user $(whoami)
 
             echo "Runing Emacs batch export of test org file"
             emacs \
                 --debug-init \
                 --batch \
-                --user $USER \
+                --user $(whoami) \
                 journal.org \
                 -f org-latex-export-to-pdf
 
             cd -
+
+            set +x
             ;;
         -h|--help|*)
             usage
