@@ -134,6 +134,10 @@ Options chosen with the customize UI live here:
 
 #+begin_src emacs-lisp :tangle init.el
 (setq custom-file "~/.emacs.d/emacs-custom.el")
+
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file))
+
 (load custom-file)
 #+end_src
 ** Default Programs
