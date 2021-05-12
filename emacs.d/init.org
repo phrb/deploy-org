@@ -19,11 +19,16 @@ C-v C-t= command.
 - Getting latest org version:
 
 #+begin_SRC emacs-lisp :tangle init.el
-(package-initialize)
 (require 'package)
+
 (setq package-archives '(("org" . "https://orgmode.org/elpa/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
 #+end_SRC
 
 ** Git Packages
