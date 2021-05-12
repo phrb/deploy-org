@@ -431,7 +431,6 @@ Loading the following babel languages:
    (org . t)
    (makefile . t)
    (latex . t)
-   (jupyter . t)
    ))
 #+end_SRC
 
