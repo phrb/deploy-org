@@ -46,7 +46,6 @@ function check_os_eval() {
                     echo "Installing on $OS_NAME $OS_VERSION"
                     ./install/ubuntu_2104.sh "$@"
                     ;;
-                    ;;
                 *)
                     echo "$OS_NAME $OS_VERSION $ERR_MSG"
                     exit -1
