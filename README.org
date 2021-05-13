@@ -2,10 +2,11 @@
 #+AUTHOR: Pedro Bruel
 #+STARTUP: overview indent
 
-| [[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml/badge.svg]] | [[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml/badge.svg]] | [[https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml/badge.svg]] | [[https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml/badge.svg]] |
+| [[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml/badge.svg]] | [[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml/badge.svg]] |
+| [[https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml/badge.svg]]             | [[https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml/badge.svg]]     |
 
 Use the Emacs  configuration files in this repository to  deploy Emacs, org, and
-ESS in your system. Tested in different distributions using Docker.
+ESS in your system. Tested in different Linux distributions using Docker.
 
 To  install this  configuration in  your system  directly, *backup  your init.el
 file*, then run:
@@ -22,6 +23,17 @@ produced."=  message, indicating  that org  succesfully compiled  the test  file
 =org/journal/journal.org=   to   =pdf=.    Tests    are   implemented   in   the
 =install/install.sh= script.
 
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports both
+./install/install.sh -h
+#+end_SRC
+
+#+RESULTS:
+: Usage: ./install/install.sh [OPTION]
+: 	-i, --install	Install dependencies (requires sudo privileges)
+: 	-e, --emacs	Copy "init.el" to user home [/home/phrb/.emacs.d/]
+: 	-t, --test	Test user configuration [/home/phrb/.emacs.d/init.el]
+: 	-h, --help	Print this message
+
 You can  check the  status on  each supported system  using Docker.   For Ubuntu
 20.04.2 LTS, for example, run:
 
@@ -29,3 +41,12 @@ You can  check the  status on  each supported system  using Docker.   For Ubuntu
 cd docker/ubuntu_20042_lts
 sudo docker build .
 #+end_SRC
+
+* Linux Distributions to Support
+- [ ] Mint
+- [ ] Fedora
+- [ ] Other Debian- and Ubuntu-based
+  - [ ] Kubuntu
+- [ ] Older Ubuntu versions
+- [ ] Manjaro
+- [ ] Arch
