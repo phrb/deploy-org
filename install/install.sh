@@ -106,6 +106,20 @@ do
                 --batch \
                 --user $(whoami)
 
+            echo "Emacs version"
+            emacs \
+                --debug-init \
+                --batch \
+                --user $(whoami) \
+                --version
+
+            echo "Org version"
+            emacs \
+                --debug-init \
+                --batch \
+                --user $(whoami) \
+                --eval="(org-version nil t t)"
+
             echo "Runing Emacs batch export of test org file"
             emacs \
                 --debug-init \
