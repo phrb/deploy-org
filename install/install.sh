@@ -100,20 +100,19 @@ do
 
             cd org/journal
 
+            echo "Emacs version"
+            emacs \
+                --debug-init \
+                --batch \
+                --version
+
             echo "Loading init.el"
             emacs \
                 --debug-init \
                 --batch \
                 --user $(whoami)
 
-            echo "Emacs version"
-            emacs \
-                --debug-init \
-                --batch \
-                --user $(whoami) \
-                --version
-
-            echo "Org version"
+            echo "User Org version"
             emacs \
                 --debug-init \
                 --batch \
