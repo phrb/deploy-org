@@ -29,51 +29,119 @@ ERR_MSG="not supported yet"
 
 OS_NAME=$(cat /etc/os-release | grep "^NAME=" | cut -d= -f2 | cut -d'"' -f2)
 OS_VERSION=$(cat /etc/os-release | grep "^VERSION=" | cut -d= -f2 | cut -d'"' -f2)
+OS_PRETTY=$(cat /etc/os-release | grep "^PRETTY_NAME=" | cut -d= -f2 | cut -d'"' -f2)
+
+function os_installing() {
+    echo "Installing on OS=[$OS_NAME] version=[$OS_VERSION]"
+}
+
+function os_err() {
+    echo "OS=[$OS_NAME] version=[$OS_VERSION] $ERR_MSG"
+    exit -1
+}
 
 function check_os_eval() {
     case "$OS_NAME" in
         "Arch Linux")
-            echo "$OS_NAME (rolling) $ERR_MSG"
-            exit -1
+            os_err
             ;;
         "Ubuntu")
             case "$OS_VERSION" in
                 "20.04.2 LTS (Focal Fossa)")
-                    echo "Installing on $OS_NAME $OS_VERSION"
+                    os_installing
                     ./install/ubuntu_20042_lts.sh "$@"
                     ;;
                 "21.04 (Hirsute Hippo)")
-                    echo "Installing on $OS_NAME $OS_VERSION"
+                    os_installing
                     ./install/ubuntu_2104.sh "$@"
                     ;;
                 *)
-                    echo "$OS_NAME $OS_VERSION $ERR_MSG"
-                    exit -1
+                    os_err
                     ;;
             esac
             ;;
         "Debian GNU/Linux")
             case "$OS_VERSION" in
                 "10 (buster)")
-                    echo "Installing on $OS_NAME $OS_VERSION"
+                    os_installing
                     ./install/debian_109.sh "$@"
                     ;;
-                "11 (bullseye)")
-                    echo "Installing on $OS_NAME $OS_VERSION"
-                    ./install/debian_11.sh "$@"
+                "")
+                    case "$OS_PRETTY" in
+                        "Debian GNU/Linux bullseye/sid")
+                            os_installing
+                            ./install/debian_11.sh "$@"
+                            ;;
+                        *)
+                            os_err
+                            ;;
+                    esac
                     ;;
                 *)
-                    echo "$OS_NAME $OS_VERSION $ERR_MSG"
-                    exit -1
+                    os_err
                     ;;
             esac
             ;;
 
         *)
-            echo "$OS_NAME $OS_VERSION $ERR_MSG"
-            exit -1
+            os_err
             ;;
     esac
+}
+
+function setup_emacs() {
+    set -x
+
+    echo "Copying \"init.el\" to $HOME/.emacs.d/"
+
+    if [ ! -d "$HOME/.emacs.d" ]
+    then
+        echo "Making directory"
+        mkdir $HOME/.emacs.d
+    fi
+
+    cp emacs.d/init.el $HOME/.emacs.d
+
+    set +x
+}
+
+function test_emacs() {
+    set -x
+
+    echo "Running init.el loading tests"
+
+    cd org/journal
+
+    echo "Emacs version"
+    emacs \
+        --debug-init \
+        --batch \
+        --version
+
+    echo "Loading init.el"
+    emacs \
+        --debug-init \
+        --batch \
+        --user $(whoami)
+
+    echo "User Org version"
+    emacs \
+        --debug-init \
+        --batch \
+        --user $(whoami) \
+        --eval="(org-version nil t t)"
+
+    echo "Runing Emacs batch export of test org file"
+    emacs \
+        --debug-init \
+        --batch \
+        --user $(whoami) \
+        journal.org \
+        -f org-latex-export-to-pdf
+
+    cd -
+
+    set +x
 }
 
 while test $# -gt 0
@@ -83,57 +151,10 @@ do
             check_os_eval -i
             ;;
         -e|--emacs)
-            set -x
-
-            echo "Copying \"init.el\" to $HOME/.emacs.d/"
-
-            if [ ! -d "$HOME/.emacs.d" ]
-            then
-                echo "Making directory"
-                mkdir $HOME/.emacs.d
-            fi
-
-            cp emacs.d/init.el $HOME/.emacs.d
-
-            set +x
+            setup_emacs
             ;;
         -t|--test)
-            set -x
-
-            echo "Running init.el loading tests"
-
-            cd org/journal
-
-            echo "Emacs version"
-            emacs \
-                --debug-init \
-                --batch \
-                --version
-
-            echo "Loading init.el"
-            emacs \
-                --debug-init \
-                --batch \
-                --user $(whoami)
-
-            echo "User Org version"
-            emacs \
-                --debug-init \
-                --batch \
-                --user $(whoami) \
-                --eval="(org-version nil t t)"
-
-            echo "Runing Emacs batch export of test org file"
-            emacs \
-                --debug-init \
-                --batch \
-                --user $(whoami) \
-                journal.org \
-                -f org-latex-export-to-pdf
-
-            cd -
-
-            set +x
+            test_emacs
             ;;
         -h|--help|*)
             usage
