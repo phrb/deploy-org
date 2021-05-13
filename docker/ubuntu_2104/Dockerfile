@@ -18,7 +18,7 @@ USER org-user
 
 WORKDIR /home/org-user/
 
-ARG ORGDEPLOY_VERSION=unknown
+ARG DEPLOYORG_VERSION=unknown
 RUN git clone https://github.com/phrb/deploy-org.git
 
 WORKDIR /home/org-user/deploy-org
