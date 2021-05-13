@@ -25,7 +25,7 @@ script.
 You can  check the  status on  each supported system  using Docker.   For Ubuntu
 20.04.2 LTS, for example, run:
 
-#+begin_SRC bash :results output :session *Shell* :eval no-export :exports results
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports code
 cd docker/ubuntu_20042_lts
 sudo docker build .
 #+end_SRC
