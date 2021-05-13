@@ -6,3 +6,26 @@
 
 Use the Emacs  configuration files in this repository to  deploy Emacs, org, and
 ESS in your system. Tested in different distributions using Docker.
+
+To  install this  configuration in  your system  directly, *backup  your init.el
+file*, then run:
+
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports code
+git clone https://github.com/phrb/deploy-org.git
+cd deploy-org
+sudo ./install/install.sh -i
+./install/install.sh -e -t
+#+end_SRC
+
+You should  check the Emacs and  org versions, and  you should see a  ="PDF file
+produced."=  message, indicating  that org  succesfully compiled  the test  file
+=org/journal.org= to  =pdf=.  Tests are implemented  in the =install/install.sh=
+script.
+
+You can  check the  status on  each supported system  using Docker.   For Ubuntu
+20.04.2 LTS, for example, run:
+
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports results
+cd docker/ubuntu_20042_lts
+sudo docker build .
+#+end_SRC
