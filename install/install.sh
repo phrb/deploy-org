@@ -58,6 +58,10 @@ function check_os_eval() {
                     echo "Installing on $OS_NAME $OS_VERSION"
                     ./install/debian_109.sh "$@"
                     ;;
+                "11 (bullseye)")
+                    echo "Installing on $OS_NAME $OS_VERSION"
+                    ./install/debian_11.sh "$@"
+                    ;;
                 *)
                     echo "$OS_NAME $OS_VERSION $ERR_MSG"
                     exit -1
