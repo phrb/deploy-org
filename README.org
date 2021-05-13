@@ -24,8 +24,9 @@ produced."=  message, indicating  that org  succesfully compiled  the test  file
 =install/install.sh= script.
 
 The =install/install.sh= script will attempt to identify your system and run the
-correct shell script for it. If it fails for your system, please submit an issue
-using the available templates.
+correct  shell   script  for   it.  If   it  fails   for  your   system,  please
+[[https://github.com/phrb/deploy-org/issues/new?assignees=&labels=enhancement&template=doesn-t-work-on--my_system.md&title=Doesn%27t+work+on+%24MY_SYSTEM][submit
+an issue]].
 
 The script's options are:
 
