@@ -17,8 +17,12 @@
     (message "Done"))
 
 (let ((default-directory  "~/.emacs.d/lisp/"))
-  (normal-top-level-add-to-load-path '("org-mode/lisp"
-                                       "org-mode/contrib/lisp")))
+  (setq load-path
+        (append
+         (let ((load-path (copy-sequence load-path)))
+           (normal-top-level-add-to-load-path '("org-mode/lisp"
+                                                "org-mode/contrib/lisp")))
+         load-path)))
 
 (unless package-archive-contents
   (package-refresh-contents))
