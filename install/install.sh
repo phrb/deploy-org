@@ -34,6 +34,7 @@ function check_os_eval() {
     case "$OS_NAME" in
         "Arch Linux")
             echo "$OS_NAME (rolling) $ERR_MSG"
+            exit -1
             ;;
         "Ubuntu")
             case "$OS_VERSION" in
@@ -41,13 +42,20 @@ function check_os_eval() {
                     echo "Installing on $OS_NAME $OS_VERSION"
                     ./install/ubuntu_20042_lts.sh "$@"
                     ;;
+                "21.04 (Hirsute Hippo)")
+                    echo "Installing on $OS_NAME $OS_VERSION"
+                    ./install/ubuntu_2104.sh "$@"
+                    ;;
+                    ;;
                 *)
                     echo "$OS_NAME $OS_VERSION $ERR_MSG"
+                    exit -1
                     ;;
             esac
             ;;
         *)
             echo "$OS_NAME $OS_VERSION $ERR_MSG"
+            exit -1
             ;;
     esac
 }
