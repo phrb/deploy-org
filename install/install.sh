@@ -52,6 +52,19 @@ function check_os_eval() {
                     ;;
             esac
             ;;
+        "Debian GNU/Linux")
+            case "$OS_VERSION" in
+                "10 (buster)")
+                    echo "Installing on $OS_NAME $OS_VERSION"
+                    ./install/debian_109.sh "$@"
+                    ;;
+                *)
+                    echo "$OS_NAME $OS_VERSION $ERR_MSG"
+                    exit -1
+                    ;;
+            esac
+            ;;
+
         *)
             echo "$OS_NAME $OS_VERSION $ERR_MSG"
             exit -1
