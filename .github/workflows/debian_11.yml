@@ -1,0 +1,14 @@
+name: Debian 11 (bullseye)
+
+on: [push, pull_request, release, workflow_dispatch]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: cd docker/debian_11 && docker build . --tag debian_11:$(date +%s)
