@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: cd docker/ubuntu_2104_lts && docker build . --tag ubuntu_2104_lts:$(date +%s)
+      run: cd docker/ubuntu_2104 && docker build . --tag ubuntu_2104_lts:$(date +%s)
