@@ -19,8 +19,8 @@ sudo ./install/install.sh -i
 
 You should  check the Emacs and  org versions, and  you should see a  ="PDF file
 produced."=  message, indicating  that org  succesfully compiled  the test  file
-=org/journal.org= to  =pdf=.  Tests are implemented  in the =install/install.sh=
-script.
+=org/journal/journal.org=   to   =pdf=.    Tests    are   implemented   in   the
+=install/install.sh= script.
 
 You can  check the  status on  each supported system  using Docker.   For Ubuntu
 20.04.2 LTS, for example, run:
