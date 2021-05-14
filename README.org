@@ -8,6 +8,9 @@
 Use the Emacs  configuration files in this repository to  deploy Emacs, org, and
 ESS in your system. Tested in different Linux distributions using Docker.
 
+#+TOC
+
+* Quickstart
 To  install this  configuration in  your system  directly, *backup  your init.el
 file*, then run:
 
@@ -18,8 +21,8 @@ sudo ./install/install.sh -i
 ./install/install.sh -e -t
 #+end_SRC
 
-You should  check the Emacs and  org versions, and  you should see a  ="PDF file
-produced."=  message, indicating  that org  succesfully compiled  the test  file
+You should  check the Emacs  and org  versions, and you  should see a  =PDF file
+produced.=  message, indicating  that  org succesfully  compiled  the test  file
 =org/journal/journal.org=   to   =pdf=.    Tests    are   implemented   in   the
 =install/install.sh= script.
 
@@ -28,6 +31,7 @@ correct  shell   script  for  it.    If  it   fails  for  your   system,  please
 [[https://github.com/phrb/deploy-org/issues/new?assignees=&labels=enhancement&template=doesn-t-work-on--my-system-.md&title=Doesn%27t+work+on+%5Bmy+system%5D][submit
 an issue]].
 
+* Install Script and Docker
 The script's options are:
 
 #+begin_SRC bash :results output :session *Shell* :eval no-export :exports both
@@ -49,7 +53,74 @@ cd docker/ubuntu_20042_lts
 sudo docker build .
 #+end_SRC
 
-* Linux Distributions to Support
+* Contributing
+To  contribute, please  fork  the  repository, create  a  new  branch with  your
+changes, and submit a pull request to the =main= branch.
+
+** Adding Support for a New Distribution
+First, check  the values of the  =NAME=, =VERSION=, and =PRETTY_NAME=  listed on
+the =/etc/os-release= file of the distribution you want to add support to:
+
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports code
+OS_NAME=$(cat /etc/os-release | grep "^NAME=" | cut -d= -f2 | cut -d'"' -f2)
+OS_VERSION=$(cat /etc/os-release | grep "^VERSION=" | cut -d= -f2 | cut -d'"' -f2)
+OS_PRETTY=$(cat /etc/os-release | grep "^PRETTY_NAME=" | cut -d= -f2 | cut -d'"' -f2)
+
+echo "[$OS_NAME] [$OS_VERSION] [$OS_PRETTY]"
+#+end_SRC
+
+Add these variables to the =case= structure in the
+[[https://github.com/phrb/deploy-org/blob/main/install/setup_os.sh#L46][check_os_eval]]
+function in the
+[[https://github.com/phrb/deploy-org/blob/main/install/setup_os.sh][setup_os.sh]]
+script. Use the =PRETTY_NAME=, or any other variable in =/etc/os-release=, only
+if =VERSION= is empty. This way, the script can launch the proper function in a
+user's system.
+
+Write a function with the configuration  for the target distribution.  If it's a
+Debian-  or   Ubuntu-based  system,   chances  are   the  Ubuntu   functions  in
+[[https://github.com/phrb/deploy-org/blob/main/install/setup_os.sh][setup_os.sh]]
+will just work.   For example, these are the functions  for Ubuntu 21.04, Debian
+10.9, and Debian 11:
+
+#+begin_SRC bash :results output :session *Shell* :eval no-export :exports code
+function ubuntu_2104() {
+    ubuntu_20042_lts
+}
+
+function debian_109() {
+    ubuntu_20042_lts
+}
+
+function debian_11() {
+    ubuntu_20042_lts
+}
+#+end_SRC
+
+Add your function call to the =case= structure.
+
+Now, write a =Dockerfile= for your distribution and a corresponding GitHub
+action.  Use the examples in the
+[[https://github.com/phrb/deploy-org/tree/main/docker][docker]] and
+[[https://github.com/phrb/deploy-org/tree/main/.github/workflows][workflows]]
+directories as starting points.
+
+Make sure that the tests for your distribution pass, and that your changes don't
+break support for any other distribution.
+
+Finally, submit a pull request with the Support New Distribution template.
+
+** Updating =init.org=
+Make your changes to =init.org=, tangle  blocks to =init.el= with =C-c C-v C-t=,
+and make sure that your changes don't break support for all distributions.
+
+Finally, submit a pull request with the Update init.org template.
+
+* Linux Distributions we Wish to Support
+Didn't see yours, or one you want?
+[[https://github.com/phrb/deploy-org/issues/new?assignees=&labels=enhancement&template=doesn-t-work-on--my-system-.md&title=Doesn%27t+work+on+%5Bmy+system%5D][Submit
+an issue]]!
+
 - [ ] Mint
 - [ ] Fedora
 - [ ] NixOS
