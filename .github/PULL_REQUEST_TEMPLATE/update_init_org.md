@@ -9,7 +9,7 @@ assignees: ''
 
 <!-- Thank you for contributing! Edit this template as needed -->
 
-** Description **
+**Description**
 
 Please, describe your changes and why you made them.
 

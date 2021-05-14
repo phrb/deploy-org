@@ -108,13 +108,17 @@ directories as starting points.
 Make sure that the tests for your distribution pass, and that your changes don't
 break support for any other distribution.
 
-Finally, submit a pull request with the Support New Distribution template.
+Finally, submit a pull request with the
+[[https://github.com/phrb/deploy-org/blob/main/.github/PULL_REQUEST_TEMPLATE/support_new_distribution.md][Support
+New Distribution]] template.
 
 ** Updating =init.org=
 Make your changes to =init.org=, tangle  blocks to =init.el= with =C-c C-v C-t=,
 and make sure that your changes don't break support for all distributions.
 
-Finally, submit a pull request with the Update init.org template.
+Finally, submit a pull request with the
+[[https://github.com/phrb/deploy-org/blob/main/.github/PULL_REQUEST_TEMPLATE/update_init_org.md][Update
+init.org]] template.
 
 * Linux Distributions we Wish to Support
 Didn't see yours, or one you want?
