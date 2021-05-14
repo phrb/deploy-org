@@ -52,8 +52,9 @@ sudo docker build .
 * Linux Distributions to Support
 - [ ] Mint
 - [ ] Fedora
-- [ ] Other Debian- and Ubuntu-based
-  - [ ] Kubuntu
+- [ ] NixOS
+- [ ] Guix
+- [ ] Kubuntu
 - [ ] Older Ubuntu versions
 - [ ] Manjaro
 - [ ] Arch
