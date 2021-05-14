@@ -6,7 +6,6 @@
 
 [[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml/badge.svg]]
 [[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml/badge.svg]]
-
 [[https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml/badge.svg]]
 [[https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml/badge.svg]]
 
