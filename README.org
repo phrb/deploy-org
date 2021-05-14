@@ -2,13 +2,21 @@
 #+AUTHOR: Pedro Bruel
 #+STARTUP: overview indent
 
-| [[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml/badge.svg]] | [[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml/badge.svg]] |
-| [[https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml/badge.svg]]             | [[https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml/badge.svg]]     |
+[[http://creativecommons.org/licenses/by/4.0/][https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg]]
+
+[[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_20042_lts.yml/badge.svg]]
+[[https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml][https://github.com/phrb/deploy-org/actions/workflows/ubuntu_2104.yml/badge.svg]]
+
+[[https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_109.yml/badge.svg]]
+[[https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml][https://github.com/phrb/deploy-org/actions/workflows/debian_11.yml/badge.svg]]
 
 Use the Emacs  configuration files in this repository to  deploy Emacs, org, and
 ESS in your system. Tested in different Linux distributions using Docker.
 
-#+TOC
+- [[Quickstart]]
+- [[Install Script and Docker]]
+- [[Contributing]]
+- [[Linux Distributions we Wish to Support]]
 
 * Quickstart
 To  install this  configuration in  your system  directly, *backup  your init.el
