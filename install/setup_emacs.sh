@@ -9,6 +9,9 @@ function setup_emacs() {
     then
         echo "Making directory"
         mkdir $HOME/.emacs.d
+    elif [ -f "$HOME/.emacs.d/init.el" ]
+         echo "Backing up existing $HOME/.emacs/init.el"
+         mv $HOME/.emacs.d/init.el $HOME/.emacs.d/backup.init.el
     fi
 
     cp emacs.d/init.el $HOME/.emacs.d
