@@ -13,10 +13,10 @@
 Use the Emacs  configuration files in this repository to  deploy Emacs, org, and
 ESS in your system. Tested in different Linux distributions using Docker.
 
-- [[Quickstart]]
-- [[Install Script and Docker]]
-- [[Contributing]]
-- [[Linux Distributions we Wish to Support]]
+- [[#quickstart]]
+- [[#install-script-and-docker]]
+- [[#contributing]]
+- [[#adding-support-for-a-new-distribution]]
 
 * Quickstart
 To  install this  configuration in  your system  directly, *backup  your init.el
