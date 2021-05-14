@@ -25,11 +25,11 @@ then
     exit
 fi
 
-. setup_os.sh
+. install/setup_os.sh
 
-. setup_emacs.sh
+. install/setup_emacs.sh
 
-. tests.sh
+. install/tests.sh
 
 while test $# -gt 0
 do
