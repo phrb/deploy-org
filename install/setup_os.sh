@@ -15,7 +15,7 @@ function os_err() {
     exit -1
 }
 
-function ubuntu_20042_lts() {
+function ubuntu_20043_lts() {
     echo "Installing dependencies (requires sudo privileges)"
     apt-get update
     apt-get install -y --no-install-recommends \
@@ -32,15 +32,15 @@ function ubuntu_20042_lts() {
 }
 
 function ubuntu_2104() {
-    ubuntu_20042_lts
+    ubuntu_20043_lts
 }
 
 function debian_109() {
-    ubuntu_20042_lts
+    ubuntu_20043_lts
 }
 
 function debian_11() {
-    ubuntu_20042_lts
+    ubuntu_20043_lts
 }
 
 function check_os_eval() {
@@ -50,9 +50,9 @@ function check_os_eval() {
             ;;
         "Ubuntu")
             case "$OS_VERSION" in
-                "20.04.2 LTS (Focal Fossa)")
+                "20.04.3 LTS (Focal Fossa)")
                     os_installing
-                    ubuntu_20042_lts
+                    ubuntu_20043_lts
                     ;;
                 "21.04 (Hirsute Hippo)")
                     os_installing
@@ -68,6 +68,10 @@ function check_os_eval() {
                 "10 (buster)")
                     os_installing
                     debian_109
+                    ;;
+                "11 (bullseye)")
+                    os_installing
+                    debian_11
                     ;;
                 "")
                     case "$OS_PRETTY" in
@@ -85,7 +89,7 @@ function check_os_eval() {
                     ;;
             esac
             ;;
-
+        "NixOS")
         *)
             os_err
             ;;
