@@ -97,10 +97,8 @@
 
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 
-(unless (file-exists-p custom-file)
-  (write-region "" nil custom-file))
-
-(load custom-file)
+(if (file-exists-p custom-file)
+    (load custom-file))
 
 (setq-default fill-column 80)
 
