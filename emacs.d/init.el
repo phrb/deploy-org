@@ -13,7 +13,7 @@
 (package-initialize)
 
 (unless (file-directory-p "~/.emacs.d/lisp/")
-  (make-directory "~/.emacs/lisp"))
+  (make-directory "~/.emacs.d/lisp"))
 
 (unless (file-directory-p "~/.emacs.d/lisp/org-mode")
     (message "Cloning and compiling org-mode")
