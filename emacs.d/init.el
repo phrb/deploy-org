@@ -21,7 +21,7 @@
                            "git clone "
                            "--branch release_9.4.5 "
                            "https://code.orgmode.org/bzg/org-mode.git && "
-                           "cd org-mode && make"))
+                           "cd org-mode && make all"))
     (message "Done"))
 
 (let ((default-directory  "~/.emacs.d/lisp/"))
