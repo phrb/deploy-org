@@ -89,7 +89,6 @@ function check_os_eval() {
                     ;;
             esac
             ;;
-        "NixOS")
         *)
             os_err
             ;;
