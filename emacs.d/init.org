@@ -2,7 +2,7 @@
 #+TITLE: Emacs init.el File using Orgmode
 #+AUTHOR: Pedro Bruel
 #+EMAIL: pedro.bruel@gmail.com
-#+STARTUP: indent logdrawer
+#+STARTUP: fold indent logdrawer
 #+LANGUAGE: en
 #+TAGS: noexport(n)
 #+EXPORT_SELECT_TAGS: export
