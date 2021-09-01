@@ -38,7 +38,7 @@ C-v C-t= command.
 *** Creating lisp directory
 #+begin_SRC emacs-lisp :tangle init.el
 (unless (file-directory-p "~/.emacs.d/lisp/")
-  (make-directory "~/.emacs/lisp"))
+  (make-directory "~/.emacs.d/lisp"))
 #+end_SRC
 
 *** org-mode from git
