@@ -12,8 +12,10 @@
 
 (package-initialize)
 
+(unless (file-directory-p "~/.emacs.d/lisp/")
+  (make-directory "~/.emacs/lisp"))
+
 (unless (file-directory-p "~/.emacs.d/lisp/org-mode")
-    (make-directory "~/.emacs.d/lisp/")
     (message "Cloning and compiling org-mode")
     (shell-command (concat "cd ~/.emacs.d/lisp && "
                            "git clone "
@@ -32,6 +34,21 @@
 
 (unless package-archive-contents
   (package-refresh-contents))
+
+(unless (file-directory-p "~/.emacs.d/lisp/ob-julia")
+    (shell-command (concat "cd ~/.emacs.d/lisp && "
+                           "git clone "
+                           "--branch v0.0.1 "
+                           "https://github.com/phrb/ob-julia.git && "
+                           "cd ob-julia && make all")))
+
+(if (file-directory-p "~/.emacs.d/lisp/ob-julia")
+    (let ((default-directory  "~/.emacs.d/lisp/"))
+      (setq load-path
+            (append
+             (let ((load-path (copy-sequence load-path)))
+               (normal-top-level-add-to-load-path '("ob-julia")))
+             load-path))))
 
 (setq pkg-deps '(ebib
                  magit
@@ -166,6 +183,41 @@
 (setq org-src-fontify-natively t)
 (setq org-src-window-setup (quote other-window))
 (setq org-confirm-babel-evaluate nil)
+
+(setq org-babel-default-header-args
+      '((:session . "none")
+        (:results . "output replace")
+        (:exports . "results")
+        (:cache . "no")
+        (:noweb . "yes")
+        (:hlines . "no")
+        (:tangle . "no")
+        (:eval . "no-export")
+        (:padnewline . "yes")))
+
+(setq org-babel-default-header-args:R
+      '((:session . "*R*")))
+
+(setq org-babel-default-header-args:bash
+      '((:session . "*Shell*")))
+
+(setq org-babel-default-header-args:python
+      '((:session . "*Python*")))
+
+(add-to-list 'org-structure-template-alist
+             '("I" . "SRC emacs-lisp :tangle init.el"))
+(add-to-list 'org-structure-template-alist
+             '("S" . "SRC shell :results output :session *Shell* :eval no-export :exports results"))
+(add-to-list 'org-structure-template-alist
+             '("j" . "SRC julia :eval no-export :exports results"))
+(add-to-list 'org-structure-template-alist
+             '("p" . "SRC python :results output :session *Python* :eval no-export :exports results"))
+(add-to-list 'org-structure-template-alist
+             '("r" . "SRC R :results output :session *R* :eval no-export :exports results"))
+(add-to-list 'org-structure-template-alist
+             '("g" . "SRC R :results graphics output :session *R* :file \".pdf\" :width 10 :height 10 :eval no-export"))
+(add-to-list 'org-structure-template-alist
+             '("t" . "SRC latex :results latex :exports results :eval no-export"))
 
 (setq python-shell-completion-native-enable nil)
 

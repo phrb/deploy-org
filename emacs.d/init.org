@@ -35,12 +35,17 @@ C-v C-t= command.
 #+end_SRC
 
 ** Git Packages
+*** Creating lisp directory
+#+begin_SRC emacs-lisp :tangle init.el
+(unless (file-directory-p "~/.emacs.d/lisp/")
+  (make-directory "~/.emacs/lisp"))
+#+end_SRC
+
 *** org-mode from git
 This clones org-mode =release_9.4.5= and loads it locally.
 
 #+begin_SRC emacs-lisp :tangle init.el
 (unless (file-directory-p "~/.emacs.d/lisp/org-mode")
-    (make-directory "~/.emacs.d/lisp/")
     (message "Cloning and compiling org-mode")
     (shell-command (concat "cd ~/.emacs.d/lisp && "
                            "git clone "
@@ -60,6 +65,25 @@ This clones org-mode =release_9.4.5= and loads it locally.
 (unless package-archive-contents
   (package-refresh-contents))
 #+end_SRC
+*** ob-julia from git
+Getting ob-julia:
+#+begin_SRC emacs-lisp :tangle init.el
+(unless (file-directory-p "~/.emacs.d/lisp/ob-julia")
+    (shell-command (concat "cd ~/.emacs.d/lisp && "
+                           "git clone "
+                           "--branch v0.0.1 "
+                           "https://github.com/phrb/ob-julia.git && "
+                           "cd ob-julia && make all")))
+
+(if (file-directory-p "~/.emacs.d/lisp/ob-julia")
+    (let ((default-directory  "~/.emacs.d/lisp/"))
+      (setq load-path
+            (append
+             (let ((load-path (copy-sequence load-path)))
+               (normal-top-level-add-to-load-path '("ob-julia")))
+             load-path))))
+#+end_SRC
+
 ** Ensure Installed
 Install these packages at startup.
 
@@ -410,10 +434,38 @@ Some custom classes for IEEE and Elsevier templates. Not tangled by default.
 (setq org-confirm-babel-evaluate nil)
 #+end_SRC
 
-**** Source Block Templates (org-tempo)
-#+begin_src emacs-lisp :tangle no
+**** Source Block Templates
+***** Optional org-tempo
+Tangle this to /init.el/ to get the old /<s <TAB>/ behavior.
+#+begin_SRC emacs-lisp :tangle no
 (require 'org-tempo)
+#+end_SRC
 
+***** Default Header Arguments
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-babel-default-header-args
+      '((:session . "none")
+        (:results . "output replace")
+        (:exports . "results")
+        (:cache . "no")
+        (:noweb . "yes")
+        (:hlines . "no")
+        (:tangle . "no")
+        (:eval . "no-export")
+        (:padnewline . "yes")))
+
+(setq org-babel-default-header-args:R
+      '((:session . "*R*")))
+
+(setq org-babel-default-header-args:bash
+      '((:session . "*Shell*")))
+
+(setq org-babel-default-header-args:python
+      '((:session . "*Python*")))
+#+end_SRC
+
+***** Language Templates
+#+begin_src emacs-lisp :tangle init.el
 (add-to-list 'org-structure-template-alist
              '("I" . "SRC emacs-lisp :tangle init.el"))
 (add-to-list 'org-structure-template-alist
