@@ -182,6 +182,8 @@
 (setq org-src-window-setup (quote other-window))
 (setq org-confirm-babel-evaluate nil)
 
+(require 'org-tempo)
+
 (setq org-babel-default-header-args
       '((:session . "none")
         (:results . "output replace")
@@ -225,6 +227,7 @@
    (R . t)
    (C . t)
    (python . t)
+   (julia . t)
    (emacs-lisp . t)
    (shell . t)
    (ruby . t)

@@ -435,7 +435,7 @@ Some custom classes for IEEE and Elsevier templates. Not tangled by default.
 **** Source Block Templates
 ***** Optional org-tempo
 Tangle this to /init.el/ to get the old /<s <TAB>/ behavior.
-#+begin_SRC emacs-lisp :tangle no
+#+begin_SRC emacs-lisp :tangle init.el
 (require 'org-tempo)
 #+end_SRC
 
@@ -498,6 +498,7 @@ Loading the following babel languages:
    (R . t)
    (C . t)
    (python . t)
+   (julia . t)
    (emacs-lisp . t)
    (shell . t)
    (ruby . t)
