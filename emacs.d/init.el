@@ -114,9 +114,9 @@
 (require 'base16-theme)
 (load-theme 'base16-default-dark t)
 
-(menu-bar-mode -1)
+(menu-bar-mode)
 (toggle-scroll-bar -1)
-(tool-bar-mode -1)
+(tool-bar-mode)
 (set-fringe-mode 0)
 
 (add-to-list 'default-frame-alist '(font . "Liberation Mono-13" ))

@@ -224,9 +224,9 @@ To use =base16= themes, install the =base16-theme= package and run:
 #+end_SRC
 ** Toolbar, Menubar, Scrollbar & Fringe
 #+begin_SRC emacs-lisp :tangle init.el
-(menu-bar-mode -1)
+(menu-bar-mode)
 (toggle-scroll-bar -1)
-(tool-bar-mode -1)
+(tool-bar-mode)
 (set-fringe-mode 0)
 #+end_SRC
 ** Font
