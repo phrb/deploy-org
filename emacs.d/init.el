@@ -172,6 +172,8 @@
 
 (setq org-latex-prefer-user-labels t)
 
+(setq org-latex-listings 'minted)
+
 (require 'ox-md)
 
 (require 'ox-odt)

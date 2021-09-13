@@ -415,6 +415,10 @@ Some custom classes for IEEE and Elsevier templates. Not tangled by default.
 #+begin_SRC emacs-lisp :tangle init.el
 (setq org-latex-prefer-user-labels t)
 #+end_SRC
+**** Use Minted for Source Blocks
+#+begin_SRC emacs-lisp :tangle init.el
+(setq org-latex-listings 'minted)
+#+end_SRC
 *** Markdown Exporting (ox-md)
 #+begin_SRC emacs-lisp :tangle init.el
 (require 'ox-md)
