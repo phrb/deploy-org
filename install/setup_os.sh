@@ -64,7 +64,6 @@ function centos_8() {
         latexmk \
         libpng-devel \
         libtiff-devel \
-        openjpeg-devel \
         gtk2-devel \
         ncurses-devel \
         giflib-devel \
