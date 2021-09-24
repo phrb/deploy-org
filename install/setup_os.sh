@@ -45,10 +45,10 @@ function debian_11() {
 
 function centos_8() {
     echo "Installing dependencies (requires sudo privileges)"
-    yum update -y
-    yum install -y \
-        python \
-        python3 \
+    dnf update -y
+    dnf install -y \
+        python2 \
+        python39 \
         r-base \
         julia \
         emacs \

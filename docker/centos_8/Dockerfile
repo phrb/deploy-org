@@ -4,8 +4,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 USER root
 
-RUN yum update -y && \
-        yum install -y \
+RUN dnf update -y && \
+        dnf install -y \
         gcc \
         gcc-c++ \
         make \
