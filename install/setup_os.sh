@@ -45,8 +45,15 @@ function debian_11() {
 
 function centos_8() {
     echo "Installing dependencies (requires sudo privileges)"
-    dnf update -y
     dnf install -y \
+        dnf-plugins-core \
+        https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+    dnf config-manager --set-enabled powertools
+    dnf update -y
+
+    dnf install -y \
+        wget \
         python2 \
         python39 \
         R \
@@ -56,6 +63,10 @@ function centos_8() {
         texlive-xetex \
         texlive-luatex \
         latexmk
+
+    wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.2-linux-x86_64.tar.gz
+    tar zxvf julia-1.6.2-linux-x86_64.tar.gz
+    ln -s julia-1.6.2/bin/julia /usr/bin/julia
 }
 
 function check_os_eval() {
