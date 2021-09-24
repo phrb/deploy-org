@@ -64,6 +64,7 @@ function centos_8() {
         latexmk \
         libpng-devel \
         libtiff-devel \
+        gnutls \
         gtk2-devel \
         ncurses-devel \
         giflib-devel \
@@ -73,7 +74,7 @@ function centos_8() {
     wget https://ftp.gnu.org/pub/gnu/emacs/emacs-27.2.tar.gz
     tar -zxvf emacs-27.2.tar.gz
     cd emacs-27.2
-    ./configure
+    ./configure --with-jpeg=ifavailable
     make
     make install
 
