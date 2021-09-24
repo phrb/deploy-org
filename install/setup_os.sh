@@ -43,10 +43,37 @@ function debian_11() {
     ubuntu_20043_lts
 }
 
+function centos_8() {
+    echo "Installing dependencies (requires sudo privileges)"
+    yum update -y
+    yum install -y \
+        python \
+        python3 \
+        r-base \
+        julia \
+        emacs \
+        texlive-latex-extra \
+        texlive-science \
+        texlive-xetex \
+        texlive-luatex \
+        latexmk
+}
+
 function check_os_eval() {
     case "$OS_NAME" in
         "Arch Linux")
             os_err
+            ;;
+        "CentOS Linux")
+            case "$OS_VERSION" in
+                "8")
+                    os_installing
+                    centos_8
+                    ;;
+                *)
+                    os_err
+                    ;;
+            esac
             ;;
         "Ubuntu")
             case "$OS_VERSION" in
