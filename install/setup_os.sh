@@ -61,7 +61,15 @@ function centos_8() {
         texlive-latex \
         texlive-xetex \
         texlive-luatex \
-        latexmk
+        latexmk \
+        libpng-devel \
+        libtiff-devel \
+        openjpeg-devel \
+        gtk2-devel \
+        ncurses-devel \
+        giflib-devel \
+        libX11-devel \
+        libXpm-devel
 
     wget https://ftp.gnu.org/pub/gnu/emacs/emacs-27.2.tar.gz
     tar -zxvf emacs-27.2.tar.gz
