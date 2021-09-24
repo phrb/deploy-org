@@ -52,12 +52,20 @@ function centos_8() {
     dnf config-manager --set-enabled powertools
     dnf update -y
 
+    wget https://ftp.gnu.org/pub/gnu/emacs/emacs-27.2.tar.gz
+    tar -zxvf emacs-27.2.tar.gz
+    cd emacs-27.2
+    ./configure
+    make
+    make install
+
+    cd -
+
     dnf install -y \
         wget \
         python2 \
         python39 \
         R \
-        emacs \
         texlive \
         texlive-latex \
         texlive-xetex \
