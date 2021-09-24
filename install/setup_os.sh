@@ -49,11 +49,11 @@ function centos_8() {
     dnf install -y \
         python2 \
         python39 \
-        r-base \
+        R \
         julia \
         emacs \
-        texlive-latex-extra \
-        texlive-science \
+        texlive \
+        texlive-latex \
         texlive-xetex \
         texlive-luatex \
         latexmk
