@@ -52,15 +52,6 @@ function centos_8() {
     dnf config-manager --set-enabled powertools
     dnf update -y
 
-    wget https://ftp.gnu.org/pub/gnu/emacs/emacs-27.2.tar.gz
-    tar -zxvf emacs-27.2.tar.gz
-    cd emacs-27.2
-    ./configure
-    make
-    make install
-
-    cd -
-
     dnf install -y \
         wget \
         python2 \
@@ -71,6 +62,15 @@ function centos_8() {
         texlive-xetex \
         texlive-luatex \
         latexmk
+
+    wget https://ftp.gnu.org/pub/gnu/emacs/emacs-27.2.tar.gz
+    tar -zxvf emacs-27.2.tar.gz
+    cd emacs-27.2
+    ./configure
+    make
+    make install
+
+    cd -
 
     wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.2-linux-x86_64.tar.gz
     tar zxvf julia-1.6.2-linux-x86_64.tar.gz
