@@ -10,10 +10,16 @@ RUN dnf update -y && \
         gcc-c++ \
         make \
         git \
+        wget \
         dnf-plugins-core
 
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN dnf config-manager --add-repo https://copr.fedorainfracloud.org/coprs/nalimilan/julia/repo/epel-7/nalimilan-julia-epel-7.repo
+RUN dnf config-manager --set-enabled powertools
+
+RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.2-linux-x86_64.tar.gz
+RUN tar zxvf julia-1.6.2-linux-x86_64.tar.gz
+
+RUN ln -s julia-1.6.2/bin/julia /usr/bin/julia
 
 RUN dnf update -y
 

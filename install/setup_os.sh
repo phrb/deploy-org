@@ -50,7 +50,6 @@ function centos_8() {
         python2 \
         python39 \
         R \
-        julia \
         emacs \
         texlive \
         texlive-latex \
