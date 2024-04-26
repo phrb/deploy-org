@@ -15,6 +15,22 @@ function os_err() {
     exit -1
 }
 
+function debian_12_lts() {
+    echo "Installing dependencies (requires sudo privileges)"
+    apt-get update
+    apt-get install -y --no-install-recommends \
+            python3 \
+            r-base \
+            emacs \
+            texlive-latex-extra \
+            texlive-science \
+            texlive-xetex \
+            texlive-luatex \
+            texlive-plain-generic \
+            latexmk
+}
+
+
 function ubuntu_20043_lts() {
     echo "Installing dependencies (requires sudo privileges)"
     apt-get update
@@ -41,6 +57,10 @@ function debian_109() {
 
 function debian_11() {
     ubuntu_20043_lts
+}
+
+function debian_12() {
+    debian_12_lts
 }
 
 function centos_8() {
@@ -126,11 +146,19 @@ function check_os_eval() {
                     os_installing
                     debian_11
                     ;;
+		"12 (bookworm)")
+                    os_installing
+                    debian_12
+                    ;;
                 "")
                     case "$OS_PRETTY" in
                         "Debian GNU/Linux bullseye/sid")
                             os_installing
                             debian_11
+                            ;;
+                        "Debian GNU/Linux 12 (bookworm)")
+                            os_installing
+                            debian_12
                             ;;
                         *)
                             os_err
